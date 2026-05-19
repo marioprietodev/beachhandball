@@ -31,9 +31,6 @@ private final TorneoRepository torneoRepository;
     }
     @DeleteMapping ("/torneos/eliminar/{id}")
     public void eliminar (@PathVariable Long id){
-        if (!torneoRepository.existsById(id)){
-            System.out.println("Torneo no encontrado");
-        }
         torneoService.eliminar(id);
 
     }

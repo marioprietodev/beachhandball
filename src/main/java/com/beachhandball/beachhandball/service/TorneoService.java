@@ -26,6 +26,11 @@ public class TorneoService {
     }
     // Eliminar torneo
     public void eliminar(Long id){
-        torneoRepository.deleteById(id);
+        if (!torneoRepository.existsById(id)){
+            System.out.println("Torneo no encontrado");
+        } else {
+            torneoRepository.deleteById(id);
+        }
+
     }
 }
