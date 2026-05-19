@@ -1,7 +1,9 @@
 package com.beachhandball.beachhandball.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Entity
@@ -18,7 +20,7 @@ public class Equipo {
     @NotBlank
     private String genero;
     @Column (nullable = false)
-    @NotBlank
+    @Min(value = 1)
     private int tamañoPlantilla;
 
 }

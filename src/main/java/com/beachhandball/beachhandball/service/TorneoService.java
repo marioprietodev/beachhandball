@@ -56,7 +56,5 @@ public class TorneoService {
         }
 
     }
-    public void actuTorneo(Long id, Torneo torneo){
 
-    }
 }
