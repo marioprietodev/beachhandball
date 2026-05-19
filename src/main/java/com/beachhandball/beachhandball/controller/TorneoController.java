@@ -5,6 +5,7 @@ import com.beachhandball.beachhandball.repository.TorneoRepository;
 import com.beachhandball.beachhandball.service.TorneoService;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -33,5 +34,9 @@ private final TorneoRepository torneoRepository;
     public void eliminar (@PathVariable Long id){
         torneoService.eliminar(id);
 
+    }
+    @PutMapping ("/torneos/editar/{id}")
+    public void actualizarTorneo(@PathVariable Long id,@RequestBody Torneo torneo){
+        torneoService.actualizarTorneo(id,torneo);
     }
 }
