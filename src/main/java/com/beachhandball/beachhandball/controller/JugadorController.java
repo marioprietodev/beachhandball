@@ -1,5 +1,6 @@
 package com.beachhandball.beachhandball.controller;
 
+import com.beachhandball.beachhandball.dto.JugadorRequestDTO;
 import com.beachhandball.beachhandball.entity.Jugador;
 import com.beachhandball.beachhandball.repository.JugadorRepository;
 import com.beachhandball.beachhandball.service.JugadorService;
@@ -28,8 +29,8 @@ public class JugadorController {
     }
 
     @PostMapping("/jugadores/crear")
-    public Jugador crearJugador(@RequestBody Jugador jugador) {
-        return jugadorService.crearJugador(jugador);
+    public Jugador crearJugador(@RequestBody JugadorRequestDTO jugadorDTO) {
+        return jugadorService.crearJugador(jugadorDTO);
     }
 
     @DeleteMapping("/jugadores/eliminar/{id}")
