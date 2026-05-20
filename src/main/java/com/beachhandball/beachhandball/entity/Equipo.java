@@ -6,6 +6,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Data;
 
+import java.util.List;
+
 @Entity
 @Data
 @Table ( name = "equipo")
@@ -22,5 +24,8 @@ public class Equipo {
     @Column (nullable = false)
     @Min(value = 1)
     private int tamañoPlantilla;
+    @OneToMany (mappedBy = "equipo")
+    private List<Jugador>plantilla;
+
 
 }

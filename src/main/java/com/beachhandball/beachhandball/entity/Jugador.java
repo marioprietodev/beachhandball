@@ -23,5 +23,7 @@ public class Jugador {
     @Column (nullable = false)
     @NotBlank
     private String especialidad;
-
+    @ManyToOne
+    @JoinColumn (name = "equipo_id")
+    private Equipo equipo;
 }
