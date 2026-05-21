@@ -45,13 +45,15 @@ public class JugadorService {
         jugadorRepository.deleteById(id);
     }
     // Editar jugador por ID
-    public void actualizarJugador(Jugador jugador, Long id){
+    public void actualizarJugador(JugadorRequestDTO jugadorDTO, Long id){
         Optional<Jugador> jugadorOptional = jugadorRepository.findById(id);
+        Equipo equipo = equipoRepository.findById(jugadorDTO.getEquipoId()).orElseThrow(()->new RuntimeException("Equipo no encontrado"));
         if (jugadorOptional.isPresent()){
             Jugador jugadorBD = jugadorOptional.get();
-            jugadorBD.setNombre(jugador.getNombre());
-            jugadorBD.setEspecialidad(jugador.getEspecialidad());
-            jugadorBD.setEdad(jugador.getEdad());
+            jugadorBD.setNombre(jugadorDTO.getNombre());
+            jugadorBD.setEspecialidad(jugadorDTO.getEspecialidad());
+            jugadorBD.setEdad(jugadorDTO.getEdad());
+            jugadorBD.setEquipo(equipo);
             jugadorRepository.save(jugadorBD);
         } else {
             System.out.println("Jugador no encontrado");

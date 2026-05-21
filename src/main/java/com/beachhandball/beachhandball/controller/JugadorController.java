@@ -39,7 +39,7 @@ public class JugadorController {
     }
 
     @PutMapping("/jugadores/actualizar/{id}")
-    public void actualizarJugador(@RequestBody Jugador jugador, @PathVariable Long id) {
-        jugadorService.actualizarJugador(jugador, id);
+    public void actualizarJugador(@RequestBody JugadorRequestDTO jugadorDTO, @PathVariable Long id) {
+        jugadorService.actualizarJugador(jugadorDTO, id);
     }
 }
