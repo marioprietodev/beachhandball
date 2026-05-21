@@ -1,12 +1,14 @@
 package com.beachhandball.beachhandball.service;
 
 import com.beachhandball.beachhandball.dto.JugadorRequestDTO;
+import com.beachhandball.beachhandball.dto.JugadorResponseDTO;
 import com.beachhandball.beachhandball.entity.Equipo;
 import com.beachhandball.beachhandball.entity.Jugador;
 import com.beachhandball.beachhandball.repository.EquipoRepository;
 import com.beachhandball.beachhandball.repository.JugadorRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,24 +23,33 @@ public class JugadorService {
     }
 
     // Crear jugador
-    public Jugador crearJugador(JugadorRequestDTO jugadorDTO) {
+    public JugadorResponseDTO crearJugador(JugadorRequestDTO jugadorDTO) {
         Equipo equipo = equipoRepository.findById(jugadorDTO.getEquipoId()).orElseThrow(()->new RuntimeException("No encontrado"));
         Jugador jugador = new Jugador();
         jugador.setNombre(jugadorDTO.getNombre());
         jugador.setEdad(jugadorDTO.getEdad());
         jugador.setEspecialidad(jugadorDTO.getEspecialidad());
         jugador.setEquipo(equipo);
-        return jugadorRepository.save(jugador);
+        Jugador jugadorguardado = jugadorRepository.save(jugador);
+        return convertirJugadorDTO(jugadorguardado);
     }
 
     // Listar jugadores
-    public List<Jugador> listarJugadores() {
-        return jugadorRepository.findAll();
+    public List<JugadorResponseDTO> listarJugadores() {
+        List<Jugador>jugadores = jugadorRepository.findAll();
+        List<JugadorResponseDTO> listaJugador = new ArrayList<>();
+        for (Jugador jugador : jugadores){
+            JugadorResponseDTO jugadorDTO = convertirJugadorDTO(jugador);
+            listaJugador.add(jugadorDTO);
+        }
+        return listaJugador;
+
     }
 
     // Buscar jugador por ID
-    public Jugador buscarIdJugador(Long id) {
-        return jugadorRepository.findById(id).orElseThrow(() -> new RuntimeException("Jugador no encontrado"));
+    public JugadorResponseDTO buscarIdJugador(Long id) {
+        Jugador jugador = jugadorRepository.findById(id).orElseThrow(()->new RuntimeException("No encontrado"));
+       return convertirJugadorDTO(jugador);
     }
     // Eliminar jugador
     public void eliminarJugador(Long id){
@@ -58,5 +69,16 @@ public class JugadorService {
         } else {
             System.out.println("Jugador no encontrado");
         }
+    }
+    // Convertir Jugador A DTO
+    public JugadorResponseDTO convertirJugadorDTO(Jugador jugador){
+        JugadorResponseDTO jugadorResponseDTO = new JugadorResponseDTO();
+
+        jugadorResponseDTO.setNombre(jugador.getNombre());
+        jugadorResponseDTO.setEdad(jugador.getEdad());
+        jugadorResponseDTO.setEspecialidad(jugador.getEspecialidad());
+        jugadorResponseDTO.setNombreEquipo(jugador.getEquipo().getNombre());
+
+        return jugadorResponseDTO;
     }
 }

@@ -1,6 +1,7 @@
 package com.beachhandball.beachhandball.controller;
 
 import com.beachhandball.beachhandball.dto.JugadorRequestDTO;
+import com.beachhandball.beachhandball.dto.JugadorResponseDTO;
 import com.beachhandball.beachhandball.entity.Jugador;
 import com.beachhandball.beachhandball.repository.JugadorRepository;
 import com.beachhandball.beachhandball.service.JugadorService;
@@ -19,17 +20,17 @@ public class JugadorController {
     }
 
     @GetMapping("/jugadores")
-    public List<Jugador> listarJugadores() {
+    public List<JugadorResponseDTO> listarJugadores() {
         return jugadorService.listarJugadores();
     }
 
     @GetMapping("/jugadores/{id}")
-    public Jugador buscarIdJugador(@PathVariable Long id) {
+    public JugadorResponseDTO buscarIdJugador(@PathVariable Long id) {
         return jugadorService.buscarIdJugador(id);
     }
 
     @PostMapping("/jugadores/crear")
-    public Jugador crearJugador(@RequestBody JugadorRequestDTO jugadorDTO) {
+    public JugadorResponseDTO crearJugador(@RequestBody JugadorRequestDTO jugadorDTO) {
         return jugadorService.crearJugador(jugadorDTO);
     }
 
